@@ -1,23 +1,17 @@
 package fr.training.spring.Library.domaine;
 
-import javax.persistence.*;
 import java.util.List;
 
-@Entity
+
 public class Library {
-    @Id
     private String idLibrary;
 
-    @Enumerated(EnumType.STRING)
     private LibraryType libraryType;
 
-    @Embedded
     private LibraryAddress libraryAddress;
 
-    @Embedded
     private LibraryDirector libraryDirector;
 
-    @OneToMany(cascade= CascadeType.ALL,orphanRemoval = true, fetch = FetchType.LAZY)
     private List<Book> books;
 
 

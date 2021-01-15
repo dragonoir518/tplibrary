@@ -1,7 +1,7 @@
 package fr.training.spring.Library.domaine;
 
 import javax.persistence.*;
-import java.io.Serializable;
+
 
 @Embeddable
 public class LibraryAddress {

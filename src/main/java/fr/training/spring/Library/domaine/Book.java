@@ -1,11 +1,7 @@
 package fr.training.spring.Library.domaine;
 
-import javax.persistence.*;
 
-@Entity
 public class Book {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idBook;
 
     private String title;
@@ -16,10 +12,17 @@ public class Book {
 
     private int nomberPage;
 
-    @Enumerated(EnumType.STRING)
     private Genre genre;
 
     public Book() {}
+
+    public Long getIdBook() {
+        return idBook;
+    }
+
+    public void setIdBook(Long idBook) {
+        this.idBook = idBook;
+    }
 
     public String getTitle() {
         return title;
@@ -41,7 +44,7 @@ public class Book {
         return genre;
     }
 
-    private Book(String title, String author, String isbn, int nomberPage, Genre genre) {
+    public Book(String title, String author, String isbn, int nomberPage, Genre genre) {
         this.title = title;
         this.author = author;
         this.isbn = isbn;

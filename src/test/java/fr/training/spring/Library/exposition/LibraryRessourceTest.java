@@ -41,7 +41,7 @@ public class LibraryRessourceTest {
 
         assertThat(response.getStatusCode()).isEqualTo((HttpStatus.OK));
 
-        System.out.println(response.getBody().toString());
+        //System.out.println(response.getBody().toString());
     }
 
     @Test
@@ -62,8 +62,6 @@ public class LibraryRessourceTest {
         assertThat(response.getStatusCode()).isEqualTo((HttpStatus.OK));
 
         System.out.println(response.getBody().toString());
-
-
     }
 
     @Test
