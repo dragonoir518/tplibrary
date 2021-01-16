@@ -53,6 +53,14 @@ public class LibraryServiceImpl implements LibraryService {
         return libraryRepository.deleteLibaray(idLibary);
     }
 
+    @Override
+    public String updateLibrary(String idLibary, Library newlibrary) {
+        Library library = libraryRepository.findLibaryById(idLibary);
+        library.update(newlibrary);
+        libraryRepository.createLibary(library);
+        return library.getIdLibrary();
+    }
+
     public String createLibary(Library library) {
         //libaryDAO.save(library);
         //return library.getIdLibrary();

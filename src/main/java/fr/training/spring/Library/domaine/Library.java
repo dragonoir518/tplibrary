@@ -1,5 +1,6 @@
 package fr.training.spring.Library.domaine;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 
@@ -18,53 +19,49 @@ public class Library {
     public Library() {
         //constructeur par défaut
     }
-    public Library(String idLibrary, LibraryType libraryType, LibraryAddress libraryAddress, LibraryDirector libraryDirector) {
+
+    public void validate() {
+        //on met la RG métier dans la classe LibraryDirector
+        libraryDirector.validate();
+    }
+
+    public Library(String idLibrary, LibraryType libraryType, LibraryAddress libraryAddress, LibraryDirector libraryDirector, List<Book> books) {
         this.idLibrary = idLibrary;
         this.libraryType = libraryType;
         this.libraryAddress = libraryAddress;
         this.libraryDirector = libraryDirector;
+        this.books = books;
+        validate();//vérifier le directeur n'est pas null
+    }
+
+    public void update(Library newlibrary) {
+        this.libraryType = newlibrary.getLibraryType();
+        this.libraryDirector = newlibrary.getLibraryDirector();
+        this.libraryAddress = newlibrary.getLibraryAddress();
+        validate(); //vérifier le directeur n'est pas null
     }
 
     public String getIdLibrary() {
         return idLibrary;
     }
 
-    public void setIdLibrary(String idLibrary) {
-        this.idLibrary = idLibrary;
-    }
-
     public LibraryType getLibraryType() {
         return libraryType;
-    }
-
-    public void setLibraryType(LibraryType libraryType) {
-        this.libraryType = libraryType;
     }
 
     public LibraryAddress getLibraryAddress() {
         return libraryAddress;
     }
 
-    public void setLibraryAddress(LibraryAddress libraryAddress) {
-        this.libraryAddress = libraryAddress;
-    }
-
     public LibraryDirector getLibraryDirector() {
         return libraryDirector;
     }
-
-    public void setLibraryDirector(LibraryDirector libraryDirector) {
-        this.libraryDirector = libraryDirector;
-    }
-
 
     public List<Book> getBooks() {
         return books;
     }
 
-    public void setBooks(List<Book> books) {
-        this.books = books;
-    }
+
 
     public static final class Builder {
         private String idLibrary;
@@ -106,13 +103,19 @@ public class Library {
         }
 
         public Library build() {
-            Library library = new Library();
-            library.setIdLibrary(idLibrary);
-            library.setLibraryType(libraryType);
-            library.setLibraryAddress(libraryAddress);
-            library.setLibraryDirector(libraryDirector);
-            library.books = this.books;
-            return library;
+            return new Library(idLibrary, libraryType, libraryAddress, libraryDirector, books);
         }
+    }
+
+
+    @Override
+    public String toString() {
+        return "Library{" +
+                "idLibrary='" + idLibrary + '\'' +
+                ", libraryType=" + libraryType +
+                ", libraryAddress=" + libraryAddress +
+                ", libraryDirector=" + libraryDirector +
+                ", books=" + books +
+                '}';
     }
 }

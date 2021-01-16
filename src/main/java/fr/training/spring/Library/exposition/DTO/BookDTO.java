@@ -32,39 +32,64 @@ public class BookDTO {
         return title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     public String getAuthor() {
         return author;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
     }
 
     public String getIsbn() {
         return isbn;
     }
 
-    public void setIsbn(String isbn) {
-        this.isbn = isbn;
-    }
-
     public int getNomberPage() {
         return nomberPage;
-    }
-
-    public void setNomberPage(int nomberPage) {
-        this.nomberPage = nomberPage;
     }
 
     public Genre getGenre() {
         return genre;
     }
 
-    public void setGenre(Genre genre) {
-        this.genre = genre;
+
+    public static final class Builder {
+        private String title;
+        private String author;
+        private String isbn;
+        private int nomberPage;
+        private Genre genre;
+
+        private Builder() {
+        }
+
+        public static Builder aBookDTO() {
+            return new Builder();
+        }
+
+        public Builder title(String title) {
+            this.title = title;
+            return this;
+        }
+
+        public Builder author(String author) {
+            this.author = author;
+            return this;
+        }
+
+        public Builder isbn(String isbn) {
+            this.isbn = isbn;
+            return this;
+        }
+
+        public Builder nomberPage(int nomberPage) {
+            this.nomberPage = nomberPage;
+            return this;
+        }
+
+        public Builder genre(Genre genre) {
+            this.genre = genre;
+            return this;
+        }
+
+        public BookDTO build() {
+            return new BookDTO(title, author, isbn, nomberPage, genre);
+        }
     }
 }

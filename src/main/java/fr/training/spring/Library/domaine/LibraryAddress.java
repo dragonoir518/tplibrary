@@ -51,4 +51,14 @@ public class LibraryAddress {
     public void setVille(String ville) {
         this.ville = ville;
     }
+
+    @Override
+    public String toString() {
+        return "LibraryAddress{" +
+                "numero=" + numero +
+                ", rue='" + rue + '\'' +
+                ", codePostal=" + codePostal +
+                ", ville='" + ville + '\'' +
+                '}';
+    }
 }

@@ -1,11 +1,10 @@
 package fr.training.spring.Library.exposition.DTO;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import fr.training.spring.Library.domaine.Book;
-import fr.training.spring.Library.domaine.LibraryAddress;
-import fr.training.spring.Library.domaine.LibraryDirector;
+
 import fr.training.spring.Library.domaine.LibraryType;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 public class LibraryDTO {
@@ -19,6 +18,7 @@ public class LibraryDTO {
     @JsonProperty("libraryAddress")
     private LibraryAddressDTO libraryAddressDTO;
 
+    @NotNull(message = "Director is mandatory")
     @JsonProperty("libraryDirector")
     private LibraryDirectorDTO libraryDirectorDTO;
 
@@ -49,6 +49,7 @@ public class LibraryDTO {
     public void setLibraryAddressDTO(LibraryAddressDTO libraryAddressDTO) {
         this.libraryAddressDTO = libraryAddressDTO;
     }
+
 
     public LibraryDirectorDTO getLibraryDirectorDTO() {
         return libraryDirectorDTO;

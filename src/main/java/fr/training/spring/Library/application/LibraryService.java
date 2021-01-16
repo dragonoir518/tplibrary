@@ -12,4 +12,6 @@ public interface LibraryService {
     List<Library> findAllType(LibraryType type);
     List<Library> findAllByDirector(String prenom);
     String deleteLibaray(String idLibary);
+
+    String updateLibrary(String idLibary, Library library);
 }

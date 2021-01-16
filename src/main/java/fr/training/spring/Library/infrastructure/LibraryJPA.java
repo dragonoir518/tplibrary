@@ -3,8 +3,10 @@ package fr.training.spring.Library.infrastructure;
 import fr.training.spring.Library.domaine.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "LIBRARY")
@@ -20,6 +22,7 @@ public class LibraryJPA {
     private LibraryAddress libraryAddress;
 
     @Embedded
+    @NotNull
     private LibraryDirector libraryDirector;
 
     @OneToMany(cascade= CascadeType.ALL,orphanRemoval = true, fetch = FetchType.LAZY)
@@ -42,23 +45,26 @@ public class LibraryJPA {
 
     public static Library toLibrary(LibraryJPA libraryJPA) {
         //transformer LibraryJPA vers Library
-        Library l = new Library();
-        l.setIdLibrary(libraryJPA.getIdLibrary());
-        l.setLibraryAddress(libraryJPA.getLibraryAddress());
-        l.setLibraryType(libraryJPA.getLibraryType());
-        l.setLibraryDirector(libraryJPA.getLibraryDirector());
-         //private Book(String title, String author, String isbn, int nomberPage, Genre genre)
+        List<Book> books = new ArrayList<>();
         if(libraryJPA.getBooks() != null) {
-            l.setBooks(libraryJPA.getBooks()
-                                 .stream()
-                                 .map(b-> new Book(b.getTitle(),
-                                                   b.getAuthor(),
-                                                   b.getIsbn(),
-                                                   b.getNomberPage(),
-                                                   b.getGenre()))
-                                 .collect(Collectors.toList()));
+            books=libraryJPA.getBooks().stream().map(b-> new Book(b.getTitle(),
+                    b.getAuthor(),
+                    b.getIsbn(),
+                    b.getNomberPage(),
+                    b.getGenre()))
+                    .collect(Collectors.toList());
+        }
+        else {
+            books = null;
         }
 
+        Library l = Library.Builder.aLibrary()
+                        .idLibrary(libraryJPA.getIdLibrary())
+                        .libraryType(libraryJPA.getLibraryType())
+                        .libraryAddress(libraryJPA.getLibraryAddress())
+                        .libraryDirector(libraryJPA.getLibraryDirector())
+                        .books(books)
+                        .build();
 
         return l;
 
