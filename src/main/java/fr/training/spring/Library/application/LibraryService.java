@@ -2,6 +2,7 @@ package fr.training.spring.Library.application;
 
 import fr.training.spring.Library.domaine.Library;
 import fr.training.spring.Library.domaine.LibraryType;
+import fr.training.spring.Library.domaine.book.Genre;
 
 import java.util.List;
 
@@ -14,4 +15,7 @@ public interface LibraryService {
     String deleteLibaray(String idLibary);
 
     String updateLibrary(String idLibary, Library library);
+
+    void referenceBook(String idLibrary, String isbn, Genre genre);
+
 }

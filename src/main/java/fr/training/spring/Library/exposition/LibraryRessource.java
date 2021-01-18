@@ -1,8 +1,12 @@
 package fr.training.spring.Library.exposition;
 
+import fr.training.spring.Library.application.BookService;
 import fr.training.spring.Library.application.LibraryService;
 import fr.training.spring.Library.domaine.Library;
 import fr.training.spring.Library.domaine.LibraryType;
+import fr.training.spring.Library.domaine.book.Book;
+import fr.training.spring.Library.domaine.book.Genre;
+import fr.training.spring.Library.exposition.DTO.BookLightDTO;
 import fr.training.spring.Library.exposition.DTO.LibraryDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,6 +26,9 @@ public class LibraryRessource {
 
     @Autowired
     private LibraryAdapter libraryAdapter;
+
+    @Autowired
+    private BookService bookService;
 
     @PostMapping(value="/create/library", consumes = { "application/json" })
     @ResponseStatus(HttpStatus.CREATED)
@@ -73,5 +80,19 @@ public class LibraryRessource {
     public String updateLibary(@PathVariable("id") final String idLibary, @RequestBody LibraryDTO libraryDTO) {
         return libaryService.updateLibrary(idLibary, libraryAdapter.mapToEntity(libraryDTO));
     }
+
+
+    @PostMapping("/library/{idLibrary}/book")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void addBookToLibrary(@PathVariable("idLibrary") final String idLibrary,
+                                   @RequestBody final BookLightDTO bookDTOLight) {
+        String isbn = bookDTOLight.getIsbn();
+        Genre genre = bookDTOLight.getGenre();
+
+     libaryService.referenceBook(idLibrary,isbn, genre);
+
+
+    }
+
 
 }

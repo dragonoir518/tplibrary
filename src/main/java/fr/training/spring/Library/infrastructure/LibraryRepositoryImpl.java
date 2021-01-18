@@ -3,6 +3,7 @@ package fr.training.spring.Library.infrastructure;
 import fr.training.spring.Library.domaine.Library;
 import fr.training.spring.Library.domaine.LibraryRepository;
 import fr.training.spring.Library.domaine.LibraryType;
+import fr.training.spring.Library.domaine.ddd.DDD;
 import fr.training.spring.Library.domaine.exceptions.LibraryNotFoundExeption;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@DDD.RepositoryImpl
 @Repository
 public class LibraryRepositoryImpl implements LibraryRepository {
 

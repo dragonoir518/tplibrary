@@ -1,6 +1,9 @@
-package fr.training.spring.Library.domaine;
+package fr.training.spring.Library.domaine.book;
 
 
+import fr.training.spring.Library.domaine.ddd.DDD;
+
+@DDD.Entity
 public class Book {
     private Long idBook;
 
@@ -52,6 +55,10 @@ public class Book {
         this.genre = genre;
     }
 
+    public void assignGenre(Genre genre) {
+        this.genre= genre;
+    }
+
 
     public static final class Builder {
         private String title;
@@ -95,5 +102,25 @@ public class Book {
         public Book build() {
             return new Book(title, author, isbn, nomberPage, genre);
         }
+    }
+
+    @Override
+    public boolean equals(final Object obj) {
+        if (obj == null) {
+            return false;
+        }
+
+        if (!this.getClass().isAssignableFrom(obj.getClass())) {
+            return false;
+        }
+
+        final Book that = this.getClass().cast(obj);
+
+        return that.idBook.equals(idBook);
+    }
+
+    @Override
+    public int hashCode() {
+        return idBook.hashCode();
     }
 }

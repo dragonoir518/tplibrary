@@ -2,6 +2,8 @@ package fr.training.spring.Library.exposition;
 
 import fr.training.spring.Library.application.LibraryService;
 import fr.training.spring.Library.domaine.*;
+import fr.training.spring.Library.domaine.book.Genre;
+import fr.training.spring.Library.domaine.exceptions.ValidationException;
 import fr.training.spring.Library.exposition.DTO.BookDTO;
 import fr.training.spring.Library.exposition.DTO.LibraryAddressDTO;
 import fr.training.spring.Library.exposition.DTO.LibraryDTO;
@@ -11,8 +13,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
 //lancer les tests avec un contexte Spring initialisé (ainsi que la base H2)
@@ -49,7 +50,6 @@ public class LibraryRessourceTest {
 
         //Then
         assertThat(response.getStatusCode()).isEqualTo((HttpStatus.OK));
-
         System.out.println(response.getBody().toString());
     }
 
@@ -64,10 +64,35 @@ public class LibraryRessourceTest {
 
         //Then
         assertThat(response.getStatusCode()).isEqualTo((HttpStatus.NOT_FOUND));
+       // assertThrows(Exception.class,()-> restTemplate.getForEntity(urlAPI + idLibrary, Exception.class));
         assertThat(response.getBody()).contains("Libary not exists");
+
         System.out.println(response.getBody());
     }
 
+
+    @Test
+    public void diretor_Is_Null_Exception_Test(){
+        //Given
+        String urlAPI = "/api/create/library/";
+        String idLibrary = "LA00000";
+
+        LibraryDTO libraryDTO = LibraryDTO.Builder.aLibraryDTO()
+                .libraryType(LibraryType.Scolaire)
+                .idLibrary(idLibrary)
+                .libraryDirectorDTO(null) //si directeur est null on doit avoir une exception
+               // .libraryDirectorDTO(new LibraryDirectorDTO("Jean","Dupont"))
+                .libraryAddressDTO(LibraryAddressDTO.Builder.aLibraryAddressDTO().numero(55).rue("rue de Paris").ville("Paris").codePostal(75012).build())
+                .build();
+
+        //When
+        //ResponseEntity<String> response = restTemplate.postForEntity(urlAPI,libraryAdapter.mapToEntity(libraryDTO), String.class);
+         assertThrows(ValidationException.class,()-> restTemplate.postForEntity(urlAPI,libraryAdapter.mapToEntity(libraryDTO), ValidationException.class));
+
+        //System.out.println(response);
+        //Then
+
+    }
     @Test
     public void update_A_Library_should_Be_Return_Sucess() {
         //Given

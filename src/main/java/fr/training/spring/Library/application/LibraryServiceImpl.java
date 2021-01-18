@@ -1,15 +1,21 @@
 package fr.training.spring.Library.application;
 
 import fr.training.spring.Library.domaine.LibraryRepository;
+import fr.training.spring.Library.domaine.book.Book;
+import fr.training.spring.Library.domaine.book.Genre;
+import fr.training.spring.Library.domaine.ddd.DDD;
 import fr.training.spring.Library.infrastructure.LibraryDAO;
 import fr.training.spring.Library.domaine.exceptions.LibraryNotFoundExeption;
 import fr.training.spring.Library.domaine.Library;
 import fr.training.spring.Library.domaine.LibraryType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@DDD.ApplicationService
+@Transactional
 @Service
 public class LibraryServiceImpl implements LibraryService {
 
@@ -19,6 +25,9 @@ public class LibraryServiceImpl implements LibraryService {
    // @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Autowired
     private LibraryRepository libraryRepository;
+
+    @Autowired
+    private BookService bookService;
 
     public Library findLibaryById(String id) {
        //return libaryDAO.findById(id).orElseThrow( ()-> new LibraryNotFoundExeption("Libary not exists=>"+ id));
@@ -59,6 +68,16 @@ public class LibraryServiceImpl implements LibraryService {
         library.update(newlibrary);
         libraryRepository.createLibary(library);
         return library.getIdLibrary();
+    }
+
+    @Override
+    public void referenceBook(String idLibrary, String isbn, Genre genre) {
+        Book book = bookService.searchBookByISBN(isbn);
+        book.assignGenre(genre);
+        Library library = libraryRepository.findLibaryById(idLibrary);
+        library.addBook(book);
+        libraryRepository.createLibary(library);
+
     }
 
     public String createLibary(Library library) {

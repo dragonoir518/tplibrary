@@ -1,9 +1,12 @@
 package fr.training.spring.Library.domaine;
 
+import fr.training.spring.Library.domaine.ddd.DDD;
+
 import javax.persistence.*;
 
 
-@Embeddable
+//@Embeddable
+@DDD.ValueObject
 public class LibraryAddress {
     private int numero;
     private String rue;

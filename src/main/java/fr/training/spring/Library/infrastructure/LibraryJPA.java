@@ -1,6 +1,7 @@
 package fr.training.spring.Library.infrastructure;
 
 import fr.training.spring.Library.domaine.*;
+import fr.training.spring.Library.domaine.book.Book;
 
 import javax.persistence.*;
 import java.util.ArrayList;

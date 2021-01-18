@@ -2,6 +2,7 @@ package fr.training.spring.Library.exposition.exceptions;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import fr.training.spring.Library.domaine.exceptions.LibraryNotFoundExeption;
+import fr.training.spring.Library.domaine.exceptions.ValidationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
@@ -30,6 +31,16 @@ public class LibraryExceptionHandler {
     @ResponseBody
     public String libraryNotFound(RuntimeException ex){
         final String errorCode = "404";
+        logger.info("Erreur {} {}",errorCode,ex.getMessage());
+        return errorCode+" "+ex.getMessage();
+
+    }
+
+    @ExceptionHandler(value = {ValidationException.class})
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseBody
+    public String directorIsNull(RuntimeException ex){
+        final String errorCode = "400";
         logger.info("Erreur {} {}",errorCode,ex.getMessage());
         return errorCode+" "+ex.getMessage();
 

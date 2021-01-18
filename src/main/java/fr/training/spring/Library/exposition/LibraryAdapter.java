@@ -1,6 +1,6 @@
 package fr.training.spring.Library.exposition;
 
-import fr.training.spring.Library.domaine.Book;
+import fr.training.spring.Library.domaine.book.Book;
 import fr.training.spring.Library.domaine.Library;
 import fr.training.spring.Library.domaine.LibraryAddress;
 import fr.training.spring.Library.domaine.LibraryDirector;

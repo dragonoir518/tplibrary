@@ -1,9 +1,13 @@
 package fr.training.spring.Library.domaine;
 
-import javax.validation.constraints.NotNull;
+import fr.training.spring.Library.domaine.book.Book;
+import fr.training.spring.Library.domaine.ddd.DDD;
+import fr.training.spring.Library.domaine.exceptions.ErrorCodes;
+import fr.training.spring.Library.domaine.exceptions.ValidationException;
+
 import java.util.List;
 
-
+@DDD.Entity
 public class Library {
     private String idLibrary;
 
@@ -22,6 +26,9 @@ public class Library {
 
     public void validate() {
         //on met la RG métier dans la classe LibraryDirector
+        if(this.libraryDirector==null) {
+            throw new ValidationException("Director is null", ErrorCodes.LIBRARY_MUST_HAVE_A_DIRECTOR);
+        }
         libraryDirector.validate();
     }
 
@@ -61,6 +68,9 @@ public class Library {
         return books;
     }
 
+    public void addBook(Book book) {
+        this.books.add(book);
+    }
 
 
     public static final class Builder {

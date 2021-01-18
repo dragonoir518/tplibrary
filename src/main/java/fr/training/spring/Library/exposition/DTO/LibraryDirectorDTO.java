@@ -2,11 +2,15 @@ package fr.training.spring.Library.exposition.DTO;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import javax.validation.constraints.NotNull;
+
 public class LibraryDirectorDTO {
     @JsonProperty("prenom")
+    @NotNull
     private String prenom;
 
     @JsonProperty("nom")
+    @NotNull
     private String nom;
 
     public LibraryDirectorDTO(String prenom, String nom) {

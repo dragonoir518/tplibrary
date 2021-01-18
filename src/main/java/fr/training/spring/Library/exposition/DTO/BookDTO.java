@@ -1,7 +1,7 @@
 package fr.training.spring.Library.exposition.DTO;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import fr.training.spring.Library.domaine.Genre;
+import fr.training.spring.Library.domaine.book.Genre;
 
 public class BookDTO {
 

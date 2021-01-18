@@ -1,4 +1,4 @@
-package fr.training.spring.Library.domaine;
+package fr.training.spring.Library.domaine.book;
 
 public enum Genre {
     Literraire,
