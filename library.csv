@@ -1,0 +1,7 @@
+id;ville;numero;cp;street;nom;prenom;type
+LA75011;Paris;88;75011;rue de Picpus;Jo;Barr;Publique
+LA75012;Paris;88;75012;rue de Paris;Helene;Barr;Publique
+LA75013;Paris;88;75013;rue de Lille;François;Barr;Nationale
+LA75014;Paris;88;75014;rue de Lyon;Helene;Barr;Scolaire
+LA75015;Paris;88;75015;rue de Toto;Toto;to;Universitaire
+LA75016;Paris;88;75016;rue de Titi;Titi;ti;Association
